@@ -1,0 +1,14 @@
+<h1> all workflow <h1>
+<% @workflows.each do |workflow| %>
+  <div>
+    <strong>Workflow Name:</strong><br>
+    <%= workflow.name %><br>
+
+    <strong>Enabled:</strong>
+    <%= workflow.enabled %><br>
+
+  
+  </div>
+<% end %>
+
+  <%= link_to "create Workflow", new_workflow_path %>
