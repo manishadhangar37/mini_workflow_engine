@@ -7,4 +7,8 @@ Rails.application.routes.draw do
 
   resources :workflows
 
+ post "/t/:path", to: "workflow_runs#create"  
+
 end
+
+
