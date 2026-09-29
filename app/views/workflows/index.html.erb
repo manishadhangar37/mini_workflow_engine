@@ -1,12 +1,12 @@
-<h1> all workflow <h1>
+<h1> all workflow </h1>
 <% @workflows.each do |workflow| %>
-  <div>
-    <strong>Workflow Name:</strong><br>
+  <div style = "border:2px solid black;">
+    <strong>Workflow Name:</strong>
     <%= workflow.name %><br>
 
     <strong>Enabled:</strong>
     <%= workflow.enabled %><br>
-
+  <%= link_to "show", workflow_path(workflow)%>
   
   </div>
 <% end %>

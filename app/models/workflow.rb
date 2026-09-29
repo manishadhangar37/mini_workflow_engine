@@ -8,4 +8,6 @@ class Workflow < ApplicationRecord
     def generate_trigger_path
         self.trigger_path = SecureRandom.hex(16)
     end
+    
+
 end
