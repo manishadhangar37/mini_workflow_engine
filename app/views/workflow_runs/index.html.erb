@@ -1,0 +1,15 @@
+<h1> All Runned Workflows </h1>
+
+<% @workflow_run.each do |workf_run| %>
+    <div style = "border:2px solid black;">
+    <strong> Workflow Name </strong>
+    <%= workf_run.workflow.name %><br/>
+    <strong> Workflow Status </strong>
+    <%= workf_run.status %>
+    <%= link_to "show", workflow_run_path(workf_run) %>
+    <br/> <br/>
+    </div>
+<% end %>
+
+
+    

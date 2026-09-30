@@ -11,7 +11,7 @@
     <strong> defination_jason </strong>
     <%= @workflow.defination_jason %> <br/>
 
-  <%= button_to "RUN","/t/#{@workflow.trigger_path}",method: :post,params: {type: "#{@workflow.name}",success: false, actor: "john"} %>
+  <%= button_to "RUN","/t/#{@workflow.trigger_path}",method: :post,params: {type: "#{@workflow.name}",success: false} %>
   <%= link_to "Edit", edit_workflow_path(@workflow) %>
   <%= button_to "Delete",workflows_path(@workflow),method: :delete %> 
 

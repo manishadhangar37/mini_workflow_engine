@@ -1,6 +1,6 @@
-class CreateCreateWorkflowRuns < ActiveRecord::Migration[8.1]
+class CreateWorkflowRuns < ActiveRecord::Migration[8.1]
   def change
-    create_table :create_workflow_runs do |t|
+    create_table :workflow_runs do |t|
       t.references :workflow, null: false, foreign_key: true
       t.integer :status
       t.jsonb :input_payload

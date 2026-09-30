@@ -6,9 +6,6 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   resources :workflows
-
- post "/t/:path", to: "workflow_runs#create"  
-
+  resources :workflow_runs
+  post "/t/:path", to: "workflow_runs#create"
 end
-
-
