@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_29_072420) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_30_094846) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
-  create_table "create_workflow_runs", force: :cascade do |t|
+  create_table "workflow_runs", force: :cascade do |t|
     t.bigint "workflow_id", null: false
     t.integer "status"
     t.jsonb "input_payload"
@@ -22,19 +22,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_29_072420) do
     t.text "error_message"
     t.datetime "started_at"
     t.datetime "finished_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["workflow_id"], name: "index_create_workflow_runs_on_workflow_id"
-  end
-
-  create_table "workflow_runs", force: :cascade do |t|
-    t.bigint "workflow_id", null: false
-    t.string "status"
-    t.jsonb "input_payload"
-    t.jsonb "output_context"
-    t.text "error_message"
-    t.string "started_at"
-    t.string "finished_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["workflow_id"], name: "index_workflow_runs_on_workflow_id"
@@ -49,6 +36,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_29_072420) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "create_workflow_runs", "workflows"
   add_foreign_key "workflow_runs", "workflows"
 end

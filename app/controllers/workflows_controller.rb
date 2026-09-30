@@ -1,14 +1,12 @@
 class WorkflowsController < ApplicationController
-    before_action :set_workflow, only: [:update, :edit, :show, :destroy ]
-  
+  before_action :set_workflow, only: [ :update, :edit, :show, :destroy ]
   def new
-        @workflow = Workflow.new
+    @workflow = Workflow.new
   end
-  
+
   def show
-  
   end
-  
+
   def index
     @workflows = Workflow.all
   end
@@ -24,7 +22,7 @@ class WorkflowsController < ApplicationController
 
   def edit
   end
-  
+
   def update
     if @workflow.update(workflow_params)
       redirect_to workflow_path(@workflow)
@@ -33,15 +31,13 @@ class WorkflowsController < ApplicationController
     end
   end
 
-    def destroy
-      if @workflow.destroy
-        redirect_to workflows_path
-      end
+  def destroy
+    if @workflow.destroy
+      redirect_to workflows_path
     end
+  end
 
-    
-
-  private 
+  private
   def workflow_params
     params.require(:workflow).permit(:name, :enabled, :defination_jason)
   end
@@ -50,5 +46,3 @@ class WorkflowsController < ApplicationController
     @workflow = Workflow.find(params[:id])
   end
 end
-
-     
