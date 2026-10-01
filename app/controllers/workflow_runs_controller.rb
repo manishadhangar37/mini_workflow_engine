@@ -12,16 +12,22 @@ class WorkflowRunsController < ApplicationController
         begin
             JSON.parse(workflow.defination_jason)
         rescue JSON::ParserError
-            render json: { error: "Invalid JSON" }, status: :unprocessable_entity
-            return
+            return render json: { error: "Invalid JSON" }, status: :unprocessable_entity
+
         end
 
         if workflow.enabled == "false"
-            render json: { error: "Workflow is disabled" }, status: :forbidden
-            return
+            return render json: { error: "Workflow is disabled" }, status: :forbidden
+
         end
-        workflow_run = workflow.workflow_runs.create!(input_payload: { type: params[:type], success: params[:success]  }, started_at: Time.current,)
+        workflow_run = workflow.workflow_runs.create!(input_payload: { type: params[:type], success: params[:success] == "true"  }, started_at: Time.current,)
         workrunner = WorkflowRunner.new(workflow, workflow_run)
-        workrunner.call
+           ans = workrunner.call
+
+        if ans
+            render json: { message: "Workflow executed successfully" }, status: :ok
+        else
+            render json: { message: "workflow does not match" }
+        end
     end
 end
