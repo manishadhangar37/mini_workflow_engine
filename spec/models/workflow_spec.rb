@@ -1,30 +1,30 @@
+require "rails_helper"
 
- require "rails_helper"
+RSpec.describe Workflow, type: :model do
+  it "workflow is valid with required attributes" do
+    workflow = Workflow.new(
+      name: "test2",
+      enabled: "true",
+      defination_jason: "{}"
+    )
 
- RSpec.describe Workflow, type: :model do
-   it "workflow is valid with required attributes" do
-     workflow = Workflow.new(
-       name: "welcome",
-       enabled: "true",
-       defination_jason: "{}"
-     )
-     expect(workflow).to be_valid
-   end
+    expect(workflow).to be_valid
+  end
 
-   it "workflow requires name" do
-     workflow = Workflow.new(
-       name: nil,
-       enabled: "true",
-       defination_jason: "{}"
-     )
+  it "workflow requires name" do
+    workflow = Workflow.new(
+      name: nil,
+      enabled: "true",
+      defination_jason: "{}"
+    )
 
     expect(workflow).not_to be_valid
-     expect(workflow.errors[:name]).to include("can't be blank")
-   end
+    expect(workflow.errors[:name]).to include("can't be blank")
+  end
 
   it "workflow name must be unique" do
     Workflow.create!(
-      name: "welcome",
+      name: "test3",
       enabled: "true",
       defination_jason: "{}"
     )

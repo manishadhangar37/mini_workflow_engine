@@ -9,7 +9,7 @@
   <%= @workflow.errors.full_messages_for(:name).to_sentence %>
   <% end %>
 
-  <br/> <br/>
+  <br/> <br/> <br/>
   
    <%= f.label :enabled %>
   <%= f.select :enabled, [["True", true], ["False", false]] %>
@@ -17,14 +17,14 @@
   <%= @workflow.errors.full_messages_for(:enabled).to_sentence %>
   <% end %>
 
- <br/> <br/>
+ <br/> <br/> <br/>
   <%= f.label :defination_jason, "Workflow JSON:" %><br/>
   <%= f.text_area :defination_jason,rows: 15, cols:80 %>
   <% if @workflow.errors[:defination_jason].any? %>
   <%= @workflow.errors.full_messages_for(:defination_jason).to_sentence %>
   <% end %>
- <br/> <br/>
-  <%= f.submit "Create Workflow" %>
+ <br/> <br/> <br/>
+  <%= f.submit "Update Workflow" %>
 
 <% end %>
  

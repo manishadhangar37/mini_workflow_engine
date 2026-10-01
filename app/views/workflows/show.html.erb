@@ -1,17 +1,14 @@
 
 <strong>Workflow Name:</strong>
-    <%= @workflow.name %><br>
+    <%= @workflow.name %><br><br/>
 
     <strong>Enabled:</strong>
-    <%= @workflow.enabled %><br>
+    <%= @workflow.enabled %><br> <br/>
 
     <strong> trigger_path </strong>
-    <%= @workflow.trigger_path %>   <br/>
-
-    <strong> defination_jason </strong>
-    <%= @workflow.defination_jason %> <br/>
-
-  <%= button_to "RUN","/t/#{@workflow.trigger_path}",method: :post,params: {type: "#{@workflow.name}",success: false} %>
-  <%= link_to "Edit", edit_workflow_path(@workflow) %>
-  <%= button_to "Delete",workflows_path(@workflow),method: :delete %> 
+    <%= @workflow.trigger_path %>   <br/> <br/>
+    
+    <%= button_to "RUN","/t/#{@workflow.trigger_path}",method: :post,params: {type: "#{@workflow.name}",success: false} %> <br/> <br/>
+    <%= link_to "Edit", edit_workflow_path(@workflow) %> <br/> <br/>
+    <%= button_to "Delete",workflows_path(@workflow),method: :delete %> 
 

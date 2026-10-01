@@ -59,6 +59,11 @@ group :development do
   gem "web-console"
 end
 
+group :development, :test do
+  gem "rspec-rails", "~> 8.0.0"
+  gem "shoulda-matchers"
+end
+
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"

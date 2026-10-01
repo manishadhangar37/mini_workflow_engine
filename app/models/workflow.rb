@@ -1,7 +1,7 @@
 class Workflow < ApplicationRecord
-    has_many :workflow_runs
+    has_many :workflow_runs, dependent: :destroy
     before_validation :generate_trigger_path
-    validates :name, presence: true
+    validates :name, presence: true, uniqueness: true
     validates :trigger_path, presence: true, uniqueness: true
     validates :defination_jason, presence: true
 

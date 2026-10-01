@@ -1,5 +1,6 @@
 class WorkflowsController < ApplicationController
   before_action :set_workflow, only: [ :update, :edit, :show, :destroy ]
+ rescue_from ActiveRecord::RecordNotFound, with: :workflow_not_found
   def new
     @workflow = Workflow.new
   end
@@ -13,6 +14,13 @@ class WorkflowsController < ApplicationController
 
   def create
     @workflow = Workflow.new(workflow_params)
+    begin
+      JSON.parse(@workflow.defination_jason)
+    rescue JSON::ParserError
+      render json: { error: "Invalid JSON" }, status: :unprocessable_entity
+      return
+    end
+
     if @workflow.save
       redirect_to workflows_path
     else
@@ -44,5 +52,9 @@ class WorkflowsController < ApplicationController
 
   def set_workflow
     @workflow = Workflow.find(params[:id])
+  end
+
+  def workflow_not_found
+    render json: { messagge: "workflow not found" }
   end
 end
