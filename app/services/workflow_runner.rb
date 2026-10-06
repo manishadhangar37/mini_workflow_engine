@@ -19,7 +19,6 @@ class WorkflowRunner
           return false
         end
 
-
       when "transform"
         context_message = TranslateExecutor.new(context, step["ops"]).call
 
@@ -33,7 +32,6 @@ class WorkflowRunner
         else
           @workflow_run.update(status: :failed, error_message: "request failed")
         end
-
       end
     end
   end
