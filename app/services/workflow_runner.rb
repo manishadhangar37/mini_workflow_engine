@@ -15,10 +15,10 @@ class WorkflowRunner
         result = FilterExecutor.new(context, step["conditions"]).call
 
         unless result
-
           @workflow_run.update(status: :skipped, output_payload: context, finished_at: Time.current)
-
+          return false
         end
+
 
       when "transform"
         context_message = TranslateExecutor.new(context, step["ops"]).call

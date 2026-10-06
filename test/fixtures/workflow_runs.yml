@@ -4,7 +4,7 @@ one:
   workflow: one
   status: MyString
   input_payload: 
-  output_context: 
+  output_payload: 
   error_message: MyText
   started_at: MyString
   finished_at: MyString
@@ -13,7 +13,7 @@ two:
   workflow: two
   status: MyString
   input_payload: 
-  output_context: 
+  output_payload: 
   error_message: MyText
   started_at: MyString
   finished_at: MyString
