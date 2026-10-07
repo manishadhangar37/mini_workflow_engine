@@ -1,14 +1,20 @@
-
+<h2> Run this workflow </h2>
 <strong>Workflow Name:</strong>
-    <%= @workflow.name %><br><br/>
+<%= @workflow.name %><br><br/>
+<strong> Trigger URL: </strong>
+<%= "/t/#{@workflow.trigger_path}" %>
+ <button onclick="navigator.clipboard.writeText('<%= @workflow.trigger_path %>')"> Copy </button>
 
-    <strong>Enabled:</strong>
-    <%= @workflow.enabled %><br> <br/>
+<%= form_with url:"/t/#{@workflow.trigger_path}", method: :post do |f| %> 
+<strong> Input Payload: </strong> <br/>
+<%= text_area_tag :input_payload, JSON.pretty_generate(
+{type: @workflow.name,success: false,actor_name: "Manisha"}),
+rows: 5,
+cols: 30%> <br/>
+<%= submit_tag "Run Workflow",style: "background-color:green; border: 2px solid green;" %> <br/> <br/>
+<% end %>
 
-    <strong> trigger_path </strong>
-    <%= @workflow.trigger_path %>   <br/> <br/>
+
+     
     
-    <%= button_to "RUN","/t/#{@workflow.trigger_path}",method: :post,params: {type: "#{@workflow.name}",success: false} %> <br/> <br/>
-    <%= link_to "Edit", edit_workflow_path(@workflow) %> <br/> <br/>
-    <%= button_to "Delete",workflows_path(@workflow),method: :delete %> 
-
+  

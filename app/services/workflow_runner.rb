@@ -13,24 +13,24 @@ class WorkflowRunner
       case step["type"]
       when "filter"
         result = FilterExecutor.new(context, step["conditions"]).call
-
+         
         unless result
-          @workflow_run.update(status: :skipped, output_payload: context, finished_at: Time.current)
+          @workflow_run.update(status: :skipped,error_message:{messgae: "workfkow filter step failed"}, finished_at: Time.current)
           return false
         end
 
       when "transform"
         context_message = TranslateExecutor.new(context, step["ops"]).call
-
+        
       when "http_request"
         response = HttpExecutor.new(context, step).call
-
+         
         if response.code == "200"
-
           @workflow_run.update(status: :success, output_payload: { message: "workflow executed successfully" }, finished_at: Time.current)
-
+          return response.code
         else
           @workflow_run.update(status: :failed, error_message: "request failed")
+          
         end
       end
     end

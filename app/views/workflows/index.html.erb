@@ -1,14 +1,33 @@
-<h1> all workflow </h1>
-<% @workflows.each do |workflow| %>
-  <div style = "border:2px solid black;" >
-    <strong>Workflow Name:</strong>
-    <%= workflow.name %><br> <br/> <br/>
+<h1>All Workflows</h1>
 
-    <strong>Enabled:</strong>
-    <%= workflow.enabled %><br> <br/>
-  <%= link_to "show", workflow_path(workflow)%><br/> <br/>
+<table border = "5">
+  <tr>
+    <th>Workflow Name</th>
+    <th>Enabled</th>
+    <th>Show</th>
+    <th>Edit </th>
+    <th> Delete </th>
+    <th> Trigger URL </th>
+  </tr>
+
+  <% @workflows.each do |workflow| %>
+    <tr>
+      <td><%= workflow.name %></td>
+      <% if workflow.enabled == "true" %>
+          <td style = "background-color:green;">enabled  </td>
+     <% else %>
+    <td style = "background-color: red;"> disabled </td>
   
-  </div>
-<% end %>
+         <% end %>
+      <td><%= link_to "Show", workflow_path(workflow) %> </td>
+        <td> <%= link_to "Edit", edit_workflow_path(workflow) %></td>
+        <td> <%= button_to "Delete", workflow_path(workflow), method: :delete %></td>
+        <td> <%= "/t/#{workflow.trigger_path}" %>
+    </tr>
+  <% end %>
+</table>
 
-  <%= link_to "create Workflow", new_workflow_path %>
+<br>
+
+<%= link_to "Create Workflow", new_workflow_path %>
+

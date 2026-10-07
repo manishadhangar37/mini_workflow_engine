@@ -3,7 +3,7 @@ class TranslateExecutor
     @context = context
     @ops = ops
   end
-
+  
   def call
     @ops.all? do |operation|
       case operation["op"]
@@ -12,7 +12,9 @@ class TranslateExecutor
         if @context[path].nil?
           @context[path] = operation["value"]
         end
+        true
       when "template"
+        
         template = operation["template"]
         @context[operation["to"]] = operation["template"].gsub("{{type}}", @context["type"]).gsub("{{actor_name}}", @context["actor_name"])
       end

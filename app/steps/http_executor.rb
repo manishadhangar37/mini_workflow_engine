@@ -18,7 +18,7 @@ class HttpExecutor
     @step["headers"].each do |key, value|
       request[key] = value
     end
-
+    
     body = @step["body"]["value"]
     body["text"] = @context["title"]
     request.body = JSON.generate(body)

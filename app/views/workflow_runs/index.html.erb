@@ -1,15 +1,25 @@
-<h1> All Runned Workflows </h1>
+<h1>All Runned Workflows</h1>
 
-<% @workflow_run.each do |workf_run| %>
-    <div style = "border:2px solid black;">
-    <strong> Workflow Name </strong>
-    <%= workf_run.workflow.name %><br/>
-    <strong> Workflow Status </strong>
-    <%= workf_run.status %>
-    <%= link_to "show", workflow_run_path(workf_run) %>
-    <br/> <br/>
-    </div>
-<% end %>
+<table border="1">
+  <tr>
+    <th>Workflow Name</th>
+    <th>Workflow Status</th>
+    <th>Show</th>
+  </tr>
 
-
-    
+  <% @workflow_run.each do |workf_run| %>
+    <tr>
+      <td><%= workf_run.workflow.name %></td>
+      <% if workf_run.success? %>
+       <td style="background-color:green;"> success </td>
+      <% end %>
+      <% if workf_run.skipped? %>
+       <td style="background-color:yellow;"> success </td>
+      <% end %>
+      <% if workf_run.failed? %>
+       <td style="background-color:red;"> success </td>
+      <% end %>
+        <td><%= link_to "Show", workflow_run_path(workf_run) %></td>
+    </tr>
+  <% end %>
+</table>

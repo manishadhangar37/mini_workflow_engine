@@ -1,6 +1,7 @@
 class WorkflowsController < ApplicationController
   before_action :set_workflow, only: [ :update, :edit, :show, :destroy ]
- rescue_from ActiveRecord::RecordNotFound, with: :workflow_not_found
+  rescue_from ActiveRecord::RecordNotFound, with: :workflow_not_found
+
   def new
     @workflow = Workflow.new
   end
@@ -18,13 +19,13 @@ class WorkflowsController < ApplicationController
       JSON.parse(@workflow.defination_jason)
     rescue JSON::ParserError
       render json: { error: "Invalid JSON" }, status: :unprocessable_entity
-      return
     end
-
+    
+    
     if @workflow.save
-      redirect_to workflows_path
+     redirect_to workflow_path(@workflow)
     else
-      render :new, status: :unprocessable_entity
+       render :new, status: :unprocessable_entity
     end
   end
 
@@ -33,7 +34,7 @@ class WorkflowsController < ApplicationController
 
   def update
     if @workflow.update(workflow_params)
-      redirect_to workflow_path(@workflow)
+      redirect_to workflow_path(@workflow);
     else
       render :edit, status: :unprocessable_entity
     end
@@ -42,6 +43,8 @@ class WorkflowsController < ApplicationController
   def destroy
     if @workflow.destroy
       redirect_to workflows_path
+    else
+      render json: { message: "can't destroy" }
     end
   end
 

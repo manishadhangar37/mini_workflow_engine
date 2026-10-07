@@ -4,8 +4,12 @@
     <br/>
     <strong> Workflow Status </strong>
     <%= @workflow_run.status %>
-    
-    <%= @workflow_run.input_payload %>
+    <br/> <br/>
+    <strong> Output </strong>
+    <% if @workflow_run.output_payload.nil? %>
+    <%= @workflow_run.error_message %>
+    <% else %>
     <%= @workflow_run.output_payload %>
+    <% end %>
 
 
