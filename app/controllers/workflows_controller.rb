@@ -42,8 +42,8 @@ class WorkflowsController < ApplicationController
   end
 
   def destroy
-    unless @workflow.destroy
-      render json: { error: "can't destroy" }
+    if @workflow.destroy
+      redirect_to workflows_path
     end
   end
 

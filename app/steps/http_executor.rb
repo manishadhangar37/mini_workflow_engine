@@ -16,7 +16,7 @@ class HttpExecutor
     return
     end
     http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
+     http.use_ssl = true
 
     request = Net::HTTP::Post.new(uri)
 

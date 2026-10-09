@@ -1,27 +1,41 @@
-<h1>All Runned Workflows</h1>
-
-<table border="1">
-  <tr>
-    <th>Workflow Name</th>
-    <th>Workflow Status</th>
-    <th>Show</th>
-  </tr>
-
-  <% @workflow_run.each do |workf_run| %>
-    <tr>
-      <td><%= workf_run.workflow.name %></td>
-      <% if workf_run.success? %>
-       <td style="background-color:green;"> success </td>
+<div class="container mt-4">
+   
+    <div class="container d-flex justify-content-between align-items-center mb-2 mt-4   ">
+      <h2 class="text-primary">All Runned Workflows</h2>
+      <%= link_to "All Workflow", workflows_path,class: "btn btn-primary" %>
+   </div>
+  
+   <div class="container mt-4 border">
+      <table class="table table-hover align-centre">
+        <thead class="table-dark">
+          <tr>
+            <th>Workflow Name</th>
+            <th>Workflow Status</th>
+            <th>Show</th>
+            <th> Delete </th>
+          </tr>
+        <thead>
+        <% @workflow_run.each do |workf_run| %>
+        <tr>
+           <td>
+           <%= workf_run.workflow.name %>
+         </td>
+         
+         <% if workf_run.success? %>
+            <td > <span class="btn btn-success"> Success </span> </td>
+         <% end %>
+         
+         <% if workf_run.skipped? %>
+           <td > <span class="btn btn-warning"> Skipped </span> </td>
+          <% end %>
+        
+          <% if workf_run.failed? %>
+           <td > <span class="btn btn-danger"> Failed </span> </td>
+          <% end %>
+          <td><%= link_to "Show", workflow_run_path(workf_run),class: "btn btn-primary btn-sm" %></td>
+            <td> <%= button_to "Delete", workflow_run_path(workf_run), method: :delete, class: "btn btn-danger" %></td>
+      </tr>
       <% end %>
-      <% if workf_run.skipped? %>
-       <td style="background-color:yellow;"> skipped </td>
-      <% end %>
-      <% if workf_run.failed? %>
-       <td style="background-color:red;"> failed </td>
-      <% end %>
-        <td><%= link_to "Show", workflow_run_path(workf_run) %></td>
-            <td> <%= button_to "Delete", workflow_run_path(workf_run), method: :delete %></td>
-
-    </tr>
-  <% end %>
-</table>
+      </table>
+    <div/>
+</div>

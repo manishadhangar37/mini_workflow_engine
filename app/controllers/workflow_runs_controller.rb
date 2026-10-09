@@ -32,18 +32,23 @@ class WorkflowRunsController < ApplicationController
     if output == "200"
       @workflow_run.update(status: :success, output_payload: { message: "workflow executed successfully" }, finished_at: Time.current)
       render json: { message: "Workflow executed successfully" }
-    else
+    elsif output == "404"
       @workflow_run.update(status: :failed, error_message: "request failed")
 
-      render json: { message: "workflow does not executed with code #{output}" }
+      render json: { message: "workflow does not executed due to url not found" }
+    else
+        render json: { message: "workflow doen not executed with code  #{output}" }
     end
   end
 
   def destroy
     workflow_run = WorkflowRun.find(params[:id])
-    unless workflow_run.destroy
-      render json: { error: "workflow_run not destroyed" }
+    if workflow_run.destroy
+       redirect_to workflow_runs_path
+    else
+        render json: "workflow cant deleted"
     end
+     
   end
   private
   def record_not_found
@@ -53,6 +58,6 @@ class WorkflowRunsController < ApplicationController
 
   def handle_bad_uri
     @workflow_run.update(status: :failed, error_message: { error: "bad uri" })
-    render json: { error: "check your URI, URI is wrong" }
+    render json: { error: "check your slack URL, URL is wrong" }
   end
 end
