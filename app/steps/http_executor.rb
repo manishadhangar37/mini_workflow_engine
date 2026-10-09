@@ -8,8 +8,13 @@ class HttpExecutor
   end
 
   def call
-    uri = URI(@step["url"])
+    uri = URI(@step["url"].to_s.strip)
 
+
+    unless %w[http https].include?(uri.scheme) && uri.host == "hooks.slack.com"
+    raise URI::InvalidURIError, "Invalid URL"
+    return
+    end
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
 
@@ -18,10 +23,10 @@ class HttpExecutor
     @step["headers"].each do |key, value|
       request[key] = value
     end
-    
+
     body = @step["body"]["value"]
     body["text"] = @context["title"]
     request.body = JSON.generate(body)
-    response = http.request(request)
+    http.request(request)
   end
 end

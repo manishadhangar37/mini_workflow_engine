@@ -2,8 +2,9 @@
 <strong>Workflow Name:</strong>
 <%= @workflow.name %><br><br/>
 <strong> Trigger URL: </strong>
+<% url = "/t/#{@workflow.trigger_path}" %>
 <%= "/t/#{@workflow.trigger_path}" %>
- <button onclick="navigator.clipboard.writeText('<%= @workflow.trigger_path %>')"> Copy </button>
+ <button onclick="navigator.clipboard.writeText('<%= url %>')"> Copy </button>
 
 <%= form_with url:"/t/#{@workflow.trigger_path}", method: :post do |f| %> 
 <strong> Input Payload: </strong> <br/>

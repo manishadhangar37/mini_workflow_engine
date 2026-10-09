@@ -14,12 +14,14 @@
        <td style="background-color:green;"> success </td>
       <% end %>
       <% if workf_run.skipped? %>
-       <td style="background-color:yellow;"> success </td>
+       <td style="background-color:yellow;"> skipped </td>
       <% end %>
       <% if workf_run.failed? %>
-       <td style="background-color:red;"> success </td>
+       <td style="background-color:red;"> failed </td>
       <% end %>
         <td><%= link_to "Show", workflow_run_path(workf_run) %></td>
+            <td> <%= button_to "Delete", workflow_run_path(workf_run), method: :delete %></td>
+
     </tr>
   <% end %>
 </table>

@@ -8,12 +8,13 @@
     <th>Edit </th>
     <th> Delete </th>
     <th> Trigger URL </th>
+    
   </tr>
 
   <% @workflows.each do |workflow| %>
     <tr>
       <td><%= workflow.name %></td>
-      <% if workflow.enabled == "true" %>
+      <% if workflow.enabled  %>
           <td style = "background-color:green;">enabled  </td>
      <% else %>
     <td style = "background-color: red;"> disabled </td>
@@ -23,6 +24,8 @@
         <td> <%= link_to "Edit", edit_workflow_path(workflow) %></td>
         <td> <%= button_to "Delete", workflow_path(workflow), method: :delete %></td>
         <td> <%= "/t/#{workflow.trigger_path}" %>
+      
+
     </tr>
   <% end %>
 </table>

@@ -3,9 +3,9 @@ class TranslateExecutor
     @context = context
     @ops = ops
   end
-  
+
   def call
-    @ops.all? do |operation|
+    @ops.each do |operation|
       case operation["op"]
       when "default"
         path = operation["path"]
@@ -14,7 +14,7 @@ class TranslateExecutor
         end
         true
       when "template"
-        
+
         template = operation["template"]
         @context[operation["to"]] = operation["template"].gsub("{{type}}", @context["type"]).gsub("{{actor_name}}", @context["actor_name"])
       end

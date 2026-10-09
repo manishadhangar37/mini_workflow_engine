@@ -6,10 +6,10 @@
     <%= @workflow_run.status %>
     <br/> <br/>
     <strong> Output </strong>
-    <% if @workflow_run.output_payload.nil? %>
-    <%= @workflow_run.error_message %>
-    <% else %>
+    <% if @workflow_run.error_message.nil? %>
     <%= @workflow_run.output_payload %>
+    <% else %>
+    <%= @workflow_run.error_message %>
     <% end %>
 
 

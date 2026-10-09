@@ -18,14 +18,15 @@ class WorkflowsController < ApplicationController
     begin
       JSON.parse(@workflow.defination_jason)
     rescue JSON::ParserError
-      render json: { error: "Invalid JSON" }, status: :unprocessable_entity
+      return render json: { error: "Invalid JSON" }, status: :unprocessable_entity
     end
-    
-    
+
+    return if @workflow.defination_jason == "{}"
+
     if @workflow.save
      redirect_to workflow_path(@workflow)
     else
-       render :new, status: :unprocessable_entity
+     render :new, status: :unprocessable_entity
     end
   end
 
@@ -34,17 +35,15 @@ class WorkflowsController < ApplicationController
 
   def update
     if @workflow.update(workflow_params)
-      redirect_to workflow_path(@workflow);
+      redirect_to workflow_path(@workflow)
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    if @workflow.destroy
-      redirect_to workflows_path
-    else
-      render json: { message: "can't destroy" }
+    unless @workflow.destroy
+      render json: { error: "can't destroy" }
     end
   end
 

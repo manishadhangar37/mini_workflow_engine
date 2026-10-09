@@ -16,9 +16,10 @@
   <%= @workflow.errors.full_messages_for(:enabled).to_sentence %>
   <% end %>
   <br/> <br/>
-  <%= label_tag :slack_url,"Where to send message: " %>
+  <%= label_tag :slack_url,"Where to send message (replace this url with your real webbok url): " %>
 <%= text_area_tag :slack_url, " https://hooks.slack.com/services/XXX/YYY/ZZZ", style: "height: 20px; width: 800px;",id:"slack_url" %>
- <br/> <br/> <br/>
+ 
+<br/> <br/> 
   <%= f.label :defination_jason, "Workflow JSON:" %><br/>
   <%= f.text_area :defination_jason, value: JSON.pretty_generate(default_defination_json), rows:18, cols:80 , id:"defination_jason" %>
   <% if @workflow.errors[:defination_jason].any? %>
@@ -35,7 +36,7 @@ const json_data = document.getElementById("defination_jason")
 const workflow_name = document.getElementById("workflow_name")
 slack_url.addEventListener("input", function(){
   defination_json = JSON.parse(json_data.value)
- defination_json.steps[2].url = slack_url.value
+  defination_json.steps[2].url = slack_url.value
   json_data.value = JSON.stringify(defination_json,null,2)
 })
 
