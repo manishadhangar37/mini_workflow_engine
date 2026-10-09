@@ -1,11 +1,20 @@
-<h1> Workflow Run </h1>
+
+
+<div class="container mt-4 border">
+<h1 class="text-primary"> Workflow Run </h1>
     <strong> Workflow Name </strong>
     <%= @workflow_run.workflow.name %>
     <br/>
-    <strong> Workflow Status </strong>
-    <%= @workflow_run.status %>
+    <strong> Workflow Status: </strong>
     
-    <%= @workflow_run.input_payload %>
-    <%= @workflow_run.output_payload %>
+    <%= @workflow_run.status %>
+    <br/> <br/>
+    <strong> Output:  </strong>
+    <% if @workflow_run.error_message.nil? %>
+    <%= @workflow_run.output_payload%>
+    
+    <% else %>
+    <%= @workflow_run.error_message %>
+    <% end %>
 
-
+</div>

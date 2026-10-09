@@ -1,10 +1,12 @@
-<h1> update the workflow </h1>
+
+<div class="container mt-4 border">
+<h1 class="text-primary"> update the workflow </h1>
 
 
 <%= form_with model: @workflow do |f| %>
  
   <%= f.label :name, "Workflow Name" %>
-  <%= f.text_field :name %>
+  <%= f.text_field :name, id:"workflow_name" %>
   <% if @workflow.errors[:name].any? %>
   <%= @workflow.errors.full_messages_for(:name).to_sentence %>
   <% end %>
@@ -19,13 +21,28 @@
 
  <br/> <br/> <br/>
   <%= f.label :defination_jason, "Workflow JSON:" %><br/>
-  <%= f.text_area :defination_jason,rows: 15, cols:80 %>
+  <%= f.text_area :defination_jason,id: "defination_jason",rows: 15, cols:80, class: "bg-black text-white" %>
   <% if @workflow.errors[:defination_jason].any? %>
   <%= @workflow.errors.full_messages_for(:defination_jason).to_sentence %>
   <% end %>
  <br/> <br/> <br/>
-  <%= f.submit "Update Workflow" %>
+  <%= f.submit "Update Workflow",class: "btn btn-primary" %>
 
 <% end %>
+</div>
+
+<script>
+
+const json_data = document.getElementById("defination_jason")
+const workflow_name = document.getElementById("workflow_name")
+
+workflow_name.addEventListener("input",function(){
+defination_json = JSON.parse(json_data.value)
+defination_json.name = workflow_name.value
+defination_json.steps[0].conditions[0].value = workflow_name.value
+json_data.value = JSON.stringify(defination_json,null,2)
+})
+
+</script>
  
 

@@ -1,14 +1,78 @@
-<h1> all workflow </h1>
-<% @workflows.each do |workflow| %>
-  <div style = "border:2px solid black;" >
-    <strong>Workflow Name:</strong>
-    <%= workflow.name %><br> <br/> <br/>
+<div class="container mt-4">
 
-    <strong>Enabled:</strong>
-    <%= workflow.enabled %><br> <br/>
-  <%= link_to "show", workflow_path(workflow)%><br/> <br/>
-  
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h2 mb-0">All Workflows</h1>
+
+    <%= link_to "All Run Workflows",
+        workflow_runs_path,
+        class: "btn btn-outline-primary" %>
   </div>
-<% end %>
 
-  <%= link_to "create Workflow", new_workflow_path %>
+  <div>
+    <table class="table table-hover align-centre">
+      <thead class="table-dark">
+        <tr>
+          <th>Workflow Name</th>
+          <th>Enabled</th>
+          <th>Show</th>
+          <th>Last Run</th>
+          <th>Trigger URL</th>
+          <th>Edit</th>
+          <th> Delete </th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        <% @workflows.each do |workflow| %>
+          <tr>
+            <td><strong><%= workflow.name %></strong></td>
+
+            <td>
+              <% if workflow.enabled %>
+                <span class="btn bg-success btn-sm">Enabled</span>
+              <% else %>
+                <span class="btn bg-danger btn-sm">Disabled</span>
+              <% end %>
+            </td>
+
+            <td>
+              <%= link_to "To Run", workflow_path(workflow),
+                  class: "btn btn-outline-primary btn-sm" %>
+            </td>
+
+            
+            <td> <% last_run = workflow.workflow_runs.last %>
+               <% if last_run.nil? %>
+                  <span> not run yet </span>
+                  <% else %>
+                  <span> <%= last_run.status %> </span>
+                  <% end %>
+
+            </td>
+
+            <td>
+              <code>/t/<%= workflow.trigger_path %></code>
+            </td>
+
+            <td>
+              <%= link_to "Edit", edit_workflow_path(workflow),class: "btn btn-outline-warning btn-sm" %>
+                    
+            </td>
+
+            <td>
+              <%= button_to "Delete", workflow_path(workflow),method: :delete,class: "btn btn-outline-danger btn-sm"
+                   %>
+            </td>
+            
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-3">
+    <%= link_to "Create Workflow", new_workflow_path,
+        class: "btn btn-primary" %>
+  </div>
+
+</div>
