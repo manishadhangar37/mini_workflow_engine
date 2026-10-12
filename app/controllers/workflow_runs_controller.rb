@@ -43,12 +43,9 @@ class WorkflowRunsController < ApplicationController
 
   def destroy
     workflow_run = WorkflowRun.find(params[:id])
-    if workflow_run.destroy
-       redirect_to workflow_runs_path
-    else
-        render json: "workflow cant deleted"
+    unless workflow_run.destroy
+      render json: "workflow cant deleted"
     end
-     
   end
   private
   def record_not_found
